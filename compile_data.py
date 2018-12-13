@@ -25,10 +25,9 @@ class CompileData:
 
         return out_data
 
-
     def read_file(self):
         """Reads each file and then puts the data into a list in a dictionary in a dictionary (ridiculous, I know)"""
-        day_dict = {"Mon":{}, "Tue":{}, "Wed":{}, "Thu":{}, "Fri":{}, "Sat":{}, "Sun":{}}
+        day_dict = {"Mon": {}, "Tue": {}, "Wed": {}, "Thu": {}, "Fri": {}, "Sat": {}, "Sun": {}}
         with open(self.dryer_file, 'r') as fn:
             d_data = fn.readlines()
         with open(self.washer_file, 'r') as fn2:
@@ -53,12 +52,11 @@ class CompileData:
         with open(self.out_file, 'w') as of:
             of.write(out_data)
 
-
     def do_math(self, data_list):
         """Gets average of all data points"""
-        sum = 0
+        total = 0
         i = 0
         while i < len(data_list):
-            sum += int(data_list[i])
+            total += int(data_list[i])
             i += 1
-        return sum/(i)  # Just get average for now
+        return total/i  # Just get average for now
