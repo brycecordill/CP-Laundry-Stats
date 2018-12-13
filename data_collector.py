@@ -3,13 +3,14 @@ from bs4 import BeautifulSoup
 import os.path
 import datetime
 
+
 class DataCollector:
     def __init__(self):
         self.url = "http://washalert.washlaundry.com/washalertweb/calpoly/WASHALERtweb.aspx?location=aef6ddae-b1f3-4bf5-827d-618c7d3ae572"
         self.page = requests.get(self.url)
         if self.page.status_code // 100 != 2:  # Fail if not a 200 type status code
             raise ConnectionError("Unable to connect")
-        
+
         self.washer_avail = 0
         self.dryer_avail = 0
         self.washer_file = "data/washer_data"
