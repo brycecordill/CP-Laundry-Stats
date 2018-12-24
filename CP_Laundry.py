@@ -14,7 +14,7 @@ class CP_Laundry:
     """
     def __init__(self):
 
-        logging.basicConfig(filename='error.log', level=logging.DEBUG, format='%(asctime)s   %(levelname)s %(message)s',
+        logging.basicConfig(filename='error.log', level=logging.WARN, format='%(asctime)s   %(levelname)s %(message)s',
                             datefmt='%m/%d/%Y %I:%M:%S %p')  # Enable logging to file
         a_parser = argparse.ArgumentParser()
         a_parser.add_argument("-c", "--collect", action='store_true',
@@ -41,7 +41,6 @@ class CP_Laundry:
             run_success = True
         if self.args.collect:
             self.read_config()
-            print(self.config_data.get('url'))
             collector = data_collector.DataCollector(self.config_data.get('url'))
             try:
                 collector.run_collector()
