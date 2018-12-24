@@ -7,11 +7,11 @@ class CompileData:
     The output is then written to self.out_file for viewing by the user.
     """
 
-    def __init__(self):
+    def __init__(self, out_file):
         self.data_dir = "data/"
         self.washer_file = self.data_dir + "washer_data"
         self.dryer_file = self.data_dir + "dryer_data"
-        self.out_file = "LaundryTimes.txt"
+        self.out_file = out_file
 
     def run_compiler(self):
         """Runs entire class"""
