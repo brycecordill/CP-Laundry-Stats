@@ -28,7 +28,7 @@ class CP_Laundry:
                                    "Defaults to LaundryTimes.txt if not specified")
         self.args = a_parser.parse_args()
         self.config_data = {}
-        self.config_path = 'config/config.json'
+        self.config_path = sys.path[0] + 'config/config.json'
         self.compile_OF = "LaundryTimes.txt"
 
     def run(self):
