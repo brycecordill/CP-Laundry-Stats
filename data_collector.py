@@ -65,8 +65,6 @@ class DataCollector:
             line_num = 0
             while file_data[line_num][:7] != formatted_str[:7] and line_num < len(file_data) - 1:
                 line_num += 1  # Iterate through lines to find match
-                print(formatted_str[:7])
-                print(file_data[line_num])
 
             if line_num == len(file_data):  # If line doesn't yet exist
                 file_data.append(formatted_str)
