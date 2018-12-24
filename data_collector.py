@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os.path
+import os
 import datetime
 
 
@@ -13,8 +13,9 @@ class DataCollector:
 
         self.washer_avail = 0
         self.dryer_avail = 0
-        self.washer_file = "data/washer_data"
-        self.dryer_file = "data/dryer_data"
+        self.data_dir = "data/"
+        self.washer_file = self.data_dir + "washer_data"
+        self.dryer_file = self.data_dir + "dryer_data"
 
     def run_collector(self):
         self.get_machine_status()
@@ -35,6 +36,9 @@ class DataCollector:
     def write_data(self):
         washer_data = self.format_data(self.washer_file, self.washer_avail)
         dryer_data = self.format_data(self.dryer_file, self.dryer_avail)
+
+        if not os.path.exists(self.data_dir):
+            os.makedirs(self.data_dir)
 
         with open(self.washer_file, 'w') as wf:
             wf.writelines(washer_data)

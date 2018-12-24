@@ -1,7 +1,11 @@
+import os
+
+
 class CompileData:
     def __init__(self):
-        self.washer_file = "data/washer_data"
-        self.dryer_file = "data/dryer_data"
+        self.data_dir = "data/"
+        self.washer_file = self.data_dir + "washer_data"
+        self.dryer_file = self.data_dir + "dryer_data"
         self.out_file = "LaundryTimes.txt"
 
     def run_compiler(self):
@@ -28,6 +32,8 @@ class CompileData:
     def read_file(self):
         """Reads each file and then puts the data into a list in a dictionary in a dictionary (ridiculous, I know)"""
         day_dict = {"Mon": {}, "Tue": {}, "Wed": {}, "Thu": {}, "Fri": {}, "Sat": {}, "Sun": {}}
+        if not os.path.exists(self.data_dir):
+            raise FileNotFoundError("Data files not found (have you run the collector yet?)")
         with open(self.dryer_file, 'r') as fn:
             d_data = fn.readlines()
         with open(self.washer_file, 'r') as fn2:
