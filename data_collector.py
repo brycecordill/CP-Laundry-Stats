@@ -11,8 +11,8 @@ class DataCollector:
     The data is collected from the url specified in self.url.
     """
 
-    def __init__(self):
-        self.url = "http://washalert.washlaundry.com/washalertweb/calpoly/WASHALERtweb.aspx?location=aef6ddae-b1f3-4bf5-827d-618c7d3ae572"
+    def __init__(self, url):
+        self.url = url
         self.page = requests.get(self.url)
         if self.page.status_code // 100 != 2:  # Fail if not a 200 type status code
             raise ConnectionError("Unable to connect")
@@ -38,7 +38,7 @@ class DataCollector:
             elif machine.find(class_="type").get_text() == "Dryer":
                 self.dryer_avail += 1
             else:
-                raise ValueError("Invalid machine machine")
+                raise ValueError("Invalid machine type")
 
     def write_data(self):
         washer_data = self.format_data(self.washer_file, self.washer_avail)
@@ -66,9 +66,9 @@ class DataCollector:
             while file_data[line_num][:7] != formatted_str[:7] and line_num < len(file_data) - 1:
                 line_num += 1  # Iterate through lines to find match
 
-            if line_num == len(file_data):  # If line doesn't yet exist
+            if file_data[line_num][:7] != formatted_str[:7]:  # If line doesn't yet exist
                 file_data.append(formatted_str)
-            else:  # If Line already exists
+            else:  # If line already exists
                 file_data[line_num] = file_data[line_num].replace("\n", " {}\n".format(available_count))
 
         else:  # If the file doesn't yet exist
