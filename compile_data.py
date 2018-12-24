@@ -1,4 +1,5 @@
 import os
+import datetime
 
 
 class CompileData:
@@ -22,7 +23,13 @@ class CompileData:
         day_list = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]  # List of days (for ordering)
         data_dict = self.read_file()
 
+        date = datetime.datetime.today()
+        current_date = date.strftime("%b %d")  # Abbreviated day of week
+        current_time = date.strftime("%H:%M")  # Hour in 24H
+        formatted_time = "Last updated on {} at {}".format(current_date, current_time)
+
         out_data = "This file displays the average amount of washers and dryers available at a given day and time" \
+                   "\n\n" + formatted_time + "\n" \
                    "\n\nDay\tTime \tWashers\tDryers\n"  # File header for usability
 
         for day in day_list:
