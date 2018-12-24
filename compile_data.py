@@ -2,6 +2,11 @@ import os
 
 
 class CompileData:
+    """
+    This file compiles the data collected from data_collector.py in a more easily readable format.
+    The output is then written to self.out_file for viewing by the user.
+    """
+
     def __init__(self):
         self.data_dir = "data/"
         self.washer_file = self.data_dir + "washer_data"
@@ -17,7 +22,7 @@ class CompileData:
         day_list = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]  # List of days (for ordering)
         data_dict = self.read_file()
 
-        out_data = "This file displays the average amount of washers and dryers available at a given time" \
+        out_data = "This file displays the average amount of washers and dryers available at a given day and time" \
                    "\n\nDay\tTime \tWashers\tDryers\n"  # File header for usability
 
         for day in day_list:

@@ -5,6 +5,12 @@ import datetime
 
 
 class DataCollector:
+    """
+    This file collects data on the number of washers and dryers available and writes that data to self.washer_file and
+    self.dryer_file in the self.data_dir directory.
+    The data is collected from the url specified in self.url.
+    """
+
     def __init__(self):
         self.url = "http://washalert.washlaundry.com/washalertweb/calpoly/WASHALERtweb.aspx?location=aef6ddae-b1f3-4bf5-827d-618c7d3ae572"
         self.page = requests.get(self.url)
