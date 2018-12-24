@@ -24,8 +24,8 @@ class CompileData:
         data_dict = self.read_file()
 
         date = datetime.datetime.today()
-        current_date = date.strftime("%b %d")  # Abbreviated day of week
-        current_time = date.strftime("%H:%M")  # Hour in 24H
+        current_date = date.strftime("%b %d")  # Abbreviated month
+        current_time = date.strftime("%H:%M")  # Time
         formatted_time = "Last updated on {} at {}".format(current_date, current_time)
 
         out_data = "This file displays the average amount of washers and dryers available at a given day and time" \
