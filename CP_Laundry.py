@@ -9,8 +9,8 @@ import compile_data
 
 class CP_Laundry:
     """
-    This is the main file of the program that controls and rusns all others  It takes arguments from the command
-    line (see list with -h) to carry out the specified operations.
+    This is the main file of the program that controls and runs all of the other files.  It takes arguments from the
+    command line (see list with -h) to carry out the desired operations.
     """
     def __init__(self):
 
