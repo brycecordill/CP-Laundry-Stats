@@ -21,5 +21,6 @@ To compile the data into a readable report, run
 ```
 python3 CP_Laundry.py -C
 ```
+By default, the report will be in named LaundryTimes.txt and will be placed in the current directory.
 
 For more options, use, the ```-h``` flag
