@@ -23,7 +23,8 @@ class DataCollector:
 
     def get_machine_status(self):
         soup = BeautifulSoup(self.page.content, 'html.parser')
-        available = soup.find_all(class_="MachineReadyMode") + soup.find_all(class_="MachineEndOfCycleMode")
+        available = soup.find_all(class_="MachineReadyMode") + soup.find_all(class_="MachineEndOfCycleMode") + \
+            soup.find_all(class_="MachineDoorOpenReadyMode")
 
         for machine in available:
             if machine.find(class_="type").get_text() == "Washer":
