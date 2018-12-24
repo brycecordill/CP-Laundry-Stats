@@ -8,9 +8,13 @@ import data_collector
 import compile_data
 
 class CP_Laundry:
+    """
+    This is the main file of the program that controls and rusns all others  It takes arguments from the command
+    line (see list with -h) to carry out the specified operations.
+    """
     def __init__(self):
 
-        logging.basicConfig(filename='error.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s',
+        logging.basicConfig(filename='error.log', level=logging.DEBUG, format='%(asctime)s   %(levelname)s %(message)s',
                             datefmt='%m/%d/%Y %I:%M:%S %p')  # Enable logging to file
         a_parser = argparse.ArgumentParser()
         a_parser.add_argument("-c", "--collect", action='store_true',
@@ -27,13 +31,14 @@ class CP_Laundry:
         self.config_path = 'config/config.json'
         self.compile_OF = "LaundryTimes.txt"
 
-
     def run(self):
+        run_success = False
         if self.args.url:
             if not os.path.exists('config'):
                 os.makedirs('config')
             self.config_data['url'] = self.args.url
             self.save_config(self.config_data)
+            run_success = True
         if self.args.collect:
             self.read_config()
             print(self.config_data.get('url'))
@@ -49,14 +54,18 @@ class CP_Laundry:
                 logging.critical("Invalid machine type detected.  Please send log to developer")
                 logging.debug(self.config_data.get('url'))
                 sys.exit(1)
+            run_success = True
         if self.args.compile:
             if self.args.output:
                 self.compile_OF = self.args.output
             compiler = compile_data.CompileData(self.compile_OF)
             compiler.run_compiler()
+            run_success = True
 
-
-
+        if not run_success:
+            print("\nInvalid arguments\n")
+            logging.critical("Invalid arguments")
+            sys.exit(1)
 
     def read_config(self):
         if not os.path.isfile(self.config_path):
