@@ -40,7 +40,10 @@ class CP_Laundry:
             self.save_config(self.config_data)
             run_success = True
         if self.args.collect:
-            self.read_config()
+            try:
+                self.read_config()
+            except FileNotFoundError:
+                sys.exit(1)
             collector = data_collector.DataCollector(self.config_data.get('url'))
             try:
                 collector.run_collector()
@@ -69,7 +72,7 @@ class CP_Laundry:
     def read_config(self):
         if not os.path.isfile(self.config_path):
             logging.critical("Config file not found.  Please run with -u")
-            print("Config file not found.  Please run with -u")
+            print("\nConfig file not found.  Please run with -u")
             raise FileNotFoundError
         with open(self.config_path, 'r') as config:
             self.config_data = json.load(config)
