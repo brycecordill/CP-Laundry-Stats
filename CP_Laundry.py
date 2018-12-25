@@ -7,6 +7,7 @@ import sys
 import data_collector
 import compile_data
 
+
 class CP_Laundry:
     """
     This is the main file of the program that controls and runs all of the other files.  It takes arguments from the
@@ -28,7 +29,7 @@ class CP_Laundry:
                                    "Defaults to LaundryTimes.txt if not specified")
         self.args = a_parser.parse_args()
         self.config_data = {}
-        self.config_path = sys.path[0] + 'config/config.json'
+        self.config_path = sys.path[0] + '/config/config.json'
         self.compile_OF = "LaundryTimes.txt"
 
     def run(self):
