@@ -1,6 +1,9 @@
 # CP-Laundry-Stats
 A program that helps you find the best time to do laundry at Cal Poly by outputting the average number of washers and dryers available at a given hour of a given day of the week.
 
+# Dependencies
+In order to run, the pyton modules ```requests``` and ```bs4``` need to be installed.  To install these modules, run
+```pip install bs4 requests```
 
 # Usage
 This program should really be run on a server (or always-on machine) as a scheduled task every hour.  The more data the program gets, the more accurate the results.  The program can be run multiple times in one hour, but the data is only recorded to the hour.
