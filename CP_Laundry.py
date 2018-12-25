@@ -39,6 +39,7 @@ class CP_Laundry:
                 os.makedirs('config')
             self.config_data['url'] = self.args.url
             self.save_config(self.config_data)
+            print("\nConfig file successfully updated!\n")
             run_success = True
         if self.args.collect:
             try:
@@ -57,12 +58,14 @@ class CP_Laundry:
                 logging.critical("Invalid machine type detected.  Please send log to developer")
                 logging.debug(self.config_data.get('url'))
                 sys.exit(1)
+            print("\nData collection complete!\n")
             run_success = True
         if self.args.compile:
             if self.args.output:
                 self.compile_OF = self.args.output
             compiler = compile_data.CompileData(self.compile_OF)
             compiler.run_compiler()
+            print("\nData compiled and saved to " + self.compile_OF)
             run_success = True
 
         if not run_success:
