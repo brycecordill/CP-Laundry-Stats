@@ -47,16 +47,18 @@ class CP_Laundry:
             try:
                 self.read_config()
             except FileNotFoundError:
+                logging.critical("Config file not found.  Please run with -u")
+                print("\nERROR: Config file not found.  Please run with -u")
                 sys.exit(1)
             collector = data_collector.DataCollector(self.config_data.get('url'))
             try:
                 collector.run_collector()
             except ConnectionError:
                 logging.critical("URL is invalid or the connection was refused")
-                print("\nURL is invalid or the connection was refused\n")
+                print("\nERROR: URL is invalid or the connection was refused\n")
                 sys.exit(1)
             except ValueError:
-                print("\nInvalid machine type detected.  Please send log to developer")
+                print("\nERROR: Invalid machine type detected.  Please send log to developer")
                 logging.critical("Invalid machine type detected.  Please send log to developer")
                 logging.debug(self.config_data.get('url'))
                 sys.exit(1)
@@ -67,20 +69,24 @@ class CP_Laundry:
             if self.args.output:
                 self.compile_OF = self.args.output
             compiler = compile_data.CompileData(self.compile_OF)
-            compiler.run_compiler()
+            try:
+                compiler.run_compiler()
+            except FileNotFoundError:
+                print("\nERROR: Data files not found (have you run the collector yet?)")
+                logging.critical("Data files not found (have you run the collector yet?)")
+                sys.exit(1)
+
             print("\nData compiled and saved to " + self.compile_OF)
             run_success = True
 
         if not run_success:  # Fail
-            print("\nInvalid arguments\n")
+            print("\nERROR: Invalid arguments\n")
             logging.critical("Invalid arguments")
             sys.exit(1)
 
     def read_config(self):
         if not os.path.isfile(self.config_path):
-            logging.critical("Config file not found.  Please run with -u")
-            print("\nConfig file not found.  Please run with -u")
-            raise FileNotFoundError
+            raise FileNotFoundError("Config file not found.  Please run with -u")
         with open(self.config_path, 'r') as config:
             self.config_data = json.load(config)
 
