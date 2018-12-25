@@ -34,14 +34,16 @@ class CP_Laundry:
 
     def run(self):
         run_success = False
-        if self.args.url:
+
+        if self.args.url:  # URL save
             if not os.path.exists('config'):
                 os.makedirs('config')
             self.config_data['url'] = self.args.url
             self.save_config(self.config_data)
             print("\nConfig file successfully updated!\n")
             run_success = True
-        if self.args.collect:
+
+        if self.args.collect:  # Collector
             try:
                 self.read_config()
             except FileNotFoundError:
@@ -51,16 +53,17 @@ class CP_Laundry:
                 collector.run_collector()
             except ConnectionError:
                 logging.critical("URL is invalid or the connection was refused")
-                print("URL is invalid or the connection was refused")
+                print("\nURL is invalid or the connection was refused\n")
                 sys.exit(1)
             except ValueError:
-                print("Invalid machine type detected.  Please send log to developer")
+                print("\nInvalid machine type detected.  Please send log to developer")
                 logging.critical("Invalid machine type detected.  Please send log to developer")
                 logging.debug(self.config_data.get('url'))
                 sys.exit(1)
             print("\nData collection complete!\n")
             run_success = True
-        if self.args.compile:
+
+        if self.args.compile:  # Compiler
             if self.args.output:
                 self.compile_OF = self.args.output
             compiler = compile_data.CompileData(self.compile_OF)
@@ -68,7 +71,7 @@ class CP_Laundry:
             print("\nData compiled and saved to " + self.compile_OF)
             run_success = True
 
-        if not run_success:
+        if not run_success:  # Fail
             print("\nInvalid arguments\n")
             logging.critical("Invalid arguments")
             sys.exit(1)
