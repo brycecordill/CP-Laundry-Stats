@@ -15,7 +15,8 @@ class CP_Laundry:
     """
     def __init__(self):
 
-        logging.basicConfig(filename='error.log', level=logging.WARN, format='%(asctime)s   %(levelname)s %(message)s',
+        log_file = sys.path[0] + '/error.log'
+        logging.basicConfig(filename=log_file, level=logging.WARN, format='%(asctime)s   %(levelname)s %(message)s',
                             datefmt='%m/%d/%Y %I:%M:%S %p')  # Enable logging to file
         a_parser = argparse.ArgumentParser()
         a_parser.add_argument("-c", "--collect", action='store_true',
