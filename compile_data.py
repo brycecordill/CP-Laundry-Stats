@@ -35,7 +35,8 @@ class CompileData:
 
         for day in day_list:
             out_data += "\n" + day  # Add day sub-header
-            for time in data_dict[day].keys():
+            sorted_times = sorted(data_dict[day].keys())
+            for time in sorted_times:
                 out_data += "\n   \t{}:00  \t{:.2}  \t{:.2}" \
                     .format(time.strip(), data_dict.get(day).get(time)[0], data_dict.get(day).get(time)[1])
                 # Format the data (    time  washer  dryer)
